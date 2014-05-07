@@ -1,4 +1,5 @@
-import struct, string
+import struct, string, copy
+from brittplayer import *
 
 class TicTacToeBoard:
 
@@ -74,7 +75,8 @@ def play():
             else:
                 Board.PrintBoard()
                 print("CPU Move")
-                make_simple_cpu_move(Board,cpuval)
+                # make_simple_cpu_move(Board,cpuval)
+                make_smart_cpu_move(Board, cpuval)
                 Board.PrintBoard()
 
     Board.PrintBoard()
@@ -86,6 +88,7 @@ def play():
         print("CPU Wins!")
 
 def main():
+
     play()
 
 main()
