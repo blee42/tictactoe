@@ -89,9 +89,9 @@ def get_next(nboard, player, alpha, beta):
 			nboard.play_square(move.col, move.row, player)
 			val, next_move = get_next(nboard, nextPlayer, alpha, beta)
 
-			if val > beta:
+			if val < beta:
 				return val, next_move
-			alpha = max(alpha, val)
+			alpha = min(alpha, val)
 
 			valList.append(val)
 			nboard.play_square(move.col, move.row, 'N')
@@ -104,10 +104,10 @@ def get_next(nboard, player, alpha, beta):
 			nboard.play_square(move.col, move.row, player)
 			val, next_move = get_next(nboard, nextPlayer, alpha, beta) 
 
-			if val < alpha:
+			if val > alpha:
 				return val, next_move
 
-			beta = min(val, beta)
+			beta = max(val, beta)
 			valList.append(val)
 			nboard.play_square(move.col, move.row, 'N')
 		val, index = get_min(valList)
