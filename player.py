@@ -88,13 +88,13 @@ def get_next(nboard, player, alpha, beta):
 		for move in blankList:
 			nboard.play_square(move.col, move.row, player)
 			val, next_move = get_next(nboard, nextPlayer, alpha, beta)
-
-			if val < beta:
-				return val, next_move
-			alpha = min(alpha, val)
-
 			valList.append(val)
 			nboard.play_square(move.col, move.row, 'N')
+
+			if val > alpha:
+				return val, blankList[len(valList)-1]
+			beta = min(beta, val)
+
 		val, index = get_max(valList)
 		return val, blankList[index]
 
@@ -103,13 +103,13 @@ def get_next(nboard, player, alpha, beta):
 		for move in blankList:
 			nboard.play_square(move.col, move.row, player)
 			val, next_move = get_next(nboard, nextPlayer, alpha, beta) 
-
-			if val > alpha:
-				return val, next_move
-
-			beta = max(val, beta)
 			valList.append(val)
 			nboard.play_square(move.col, move.row, 'N')
+
+			if val < beta:
+				return val, blankList[len(valList)-1]
+			alpha = max(val, alpha)
+
 		val, index = get_min(valList)
 		return val, blankList[index]
 
