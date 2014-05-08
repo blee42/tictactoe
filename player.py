@@ -87,9 +87,12 @@ def get_next(nboard, player, alpha, beta):
 	if (player == 'X'):
 		for move in blankList:
 			nboard.play_square(move.col, move.row, player)
-			val, next_move = get_next(nboard, nextPlayer, max(alpha, val), beta)
-			if val > alpha:
+			val, next_move = get_next(nboard, nextPlayer, alpha, beta)
+
+			if val > beta:
 				return val, next_move
+			alpha = max(alpha, val)
+
 			valList.append(val)
 			nboard.play_square(move.col, move.row, 'N')
 		val, index = get_max(valList)
@@ -99,9 +102,12 @@ def get_next(nboard, player, alpha, beta):
 	else:
 		for move in blankList:
 			nboard.play_square(move.col, move.row, player)
-			val, next_move = get_next(nboard, nextPlayer, alpha, min(beta, val)) 
-			if val < beta:
+			val, next_move = get_next(nboard, nextPlayer, alpha, beta) 
+
+			if val < alpha:
 				return val, next_move
+
+			beta = min(val, beta)
 			valList.append(val)
 			nboard.play_square(move.col, move.row, 'N')
 		val, index = get_min(valList)
