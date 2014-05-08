@@ -55,6 +55,12 @@ def make_simple_cpu_move(board, cpuval):
 
 def play():
     Board = TicTacToeBoard()
+
+    print ("who makes the first move?")
+    print ("you = 1, computer = 0")
+    first = int(input())
+    print first
+    
     humanval =  'X'
     cpuval = 'O'
     Board.PrintBoard()
