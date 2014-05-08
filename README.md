@@ -1,10 +1,8 @@
-##EECS 348
-##Problem Set 3 -- Tic Tac Toe
+#EECS 348 Problem Set 3 -- Tic Tac Toe
 
-#Kevin Chen & Brittany Lee
+Made by Kevin Chen & Brittany Lee.
 
-
-#Usage: 
+##Usage: 
 To play a game, enter `python tictactoe.py` into the command shell.
 
 
