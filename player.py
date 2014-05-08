@@ -64,7 +64,7 @@ def get_min(valList):
 # Output - 
 # val: the predicted winner where 0 = tie, 1 = X wins, -1 = O wins
 # next: -1 = game is finished, TicTacToeMove object with col and row
-def get_next(nboard, player):
+def get_next(nboard, player, alpha, beta):
 	# check if we found winner
 	win = nboard.winner()
 	if (win != 'N'):
@@ -83,20 +83,27 @@ def get_next(nboard, player):
 	if (len(blankList) == 0):
 		return 0, -1
 
-	# recursively look at the results of each move
-	for move in blankList:
-		nboard.play_square(move.col, move.row, player)
-		val, next_move = get_next(nboard, nextPlayer)
-		valList.append(val)
-		nboard.play_square(move.col, move.row, 'N')
-
 	# if maximizing player
 	if (player == 'X'):
+		for move in blankList:
+			nboard.play_square(move.col, move.row, player)
+			val, next_move = get_next(nboard, nextPlayer, max(alpha, val), beta)
+			if val > alpha:
+				return val, next_move
+			valList.append(val)
+			nboard.play_square(move.col, move.row, 'N')
 		val, index = get_max(valList)
 		return val, blankList[index]
 
 	# if minimizing player
 	else:
+		for move in blankList:
+			nboard.play_square(move.col, move.row, player)
+			val, next_move = get_next(nboard, nextPlayer, alpha, min(beta, val)) 
+			if val < beta:
+				return val, next_move
+			valList.append(val)
+			nboard.play_square(move.col, move.row, 'N')
 		val, index = get_min(valList)
 		return val, blankList[index]
 
@@ -106,6 +113,6 @@ def get_next(nboard, player):
 # cpuval: the value the cpu is playing as (X or O)
 def make_smart_cpu_move(board, cpuval):
     nBoard = copy.deepcopy(board)
-    winner, next_move = get_next(nBoard, cpuval)
+    winner, next_move = get_next(nBoard, cpuval, 0, 0)
     board.play_square(next_move.col, next_move.row, cpuval)
 
