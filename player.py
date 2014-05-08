@@ -10,19 +10,19 @@ class TicTacToeMove:
 # Input - 
 # board: the current game board
 # Output -
-# open: the list of all the open spots on the game board
+# spaces: the list of all the open spots on the game board
 # each value in the list is a TicTacToeMove object with col and row
 def get_blanks(board):
-	open = []
+	spaces = []
 	for row in range(0,3):
 		for col in range(0,3):
 			if (board.get_square(col, row) == 'N'):
 				# print board.get_square(col, row)
 				blank = TicTacToeMove(col, row)
 				# print blank
-				open.append(blank)
-	# print open
-	return open
+				spaces.append(blank)
+	# print spaces
+	return spaces
 
 # find next player
 # Input -
@@ -86,7 +86,7 @@ def get_next(nboard, player):
 	# recursively look at the results of each move
 	for move in blankList:
 		nboard.play_square(move.col, move.row, player)
-		val, next = get_next(nboard, nextPlayer)
+		val, next_move = get_next(nboard, nextPlayer)
 		valList.append(val)
 		nboard.play_square(move.col, move.row, 'N')
 
@@ -106,6 +106,6 @@ def get_next(nboard, player):
 # cpuval: the value the cpu is playing as (X or O)
 def make_smart_cpu_move(board, cpuval):
     nBoard = copy.deepcopy(board)
-    winner, next = get_next(nBoard, cpuval)
-    board.play_square(next.col, next.row, cpuval)
+    winner, next_move = get_next(nBoard, cpuval)
+    board.play_square(next_move.col, next_move.row, cpuval)
 

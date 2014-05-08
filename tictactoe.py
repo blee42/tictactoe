@@ -1,5 +1,5 @@
 import struct, string, copy
-from brittplayer import *
+from player import *
 
 class TicTacToeBoard:
 
@@ -59,7 +59,9 @@ def play():
     print ("who makes the first move?")
     print ("you = 1, computer = 0")
     first = int(input())
-    print first
+
+    print ["you are", "computer is"][first] + " going first!"
+
     
     humanval =  'X'
     cpuval = 'O'
@@ -85,9 +87,10 @@ def play():
                 make_smart_cpu_move(Board, cpuval)
                 Board.PrintBoard()
 
+    print("")
     Board.PrintBoard()
     if(Board.winner()=='N'):
-        print("Cat game")
+        print("Cat game :(")
     elif(Board.winner()==humanval):
         print("You Win!")
     elif(Board.winner()==cpuval):
