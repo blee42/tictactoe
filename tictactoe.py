@@ -57,14 +57,20 @@ def play():
     Board = TicTacToeBoard()
 
     print ("who makes the first move?")
-    print ("you = 1, computer = 0")
+    print ("you = 0, computer = 1")
     first = int(input())
 
     print ["you are", "computer is"][first] + " going first!"
 
-    
-    humanval =  'X'
-    cpuval = 'O'
+    if (first == 0):
+        humanval =  'X'
+        cpuval = 'O'
+    else:
+        humanval = 'O'
+        cpuval = 'X'
+        print "CPU Move"
+        make_smart_cpu_move(Board, cpuval)
+
     Board.PrintBoard()
     
     while( Board.full_board()==False and Board.winner() == 'N'):
